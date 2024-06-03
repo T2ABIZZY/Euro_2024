@@ -12,5 +12,9 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
 driver.get("https://inside.fifa.com/fifa-world-ranking/men")
-print(driver.title)
+accept_button = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.ID, "onetrust-accept-btn-handler"))
+    )
+accept_button.click()
+
 driver.quit()
