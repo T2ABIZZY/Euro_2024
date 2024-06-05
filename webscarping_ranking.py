@@ -9,6 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 chrome_options = Options()
 chrome_options.add_argument("--no-sandbox")  
+chrome_options.add_argument('--incognito')
 chrome_options.add_argument("--disable-dev-shm-usage")  
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -58,5 +59,6 @@ while True:
         break
 
 
-time.sleep(10)
+page_source = driver.page_source
+soup = BeautifulSoup(page_source, 'lxml')
 driver.quit()
