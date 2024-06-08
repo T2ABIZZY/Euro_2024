@@ -61,8 +61,12 @@ while True:
 
 page_source = driver.page_source
 soup = BeautifulSoup(page_source, 'html.parser')
-
+ranking=[]
+a=0
 ranks = soup.find_all('tr',class_="table-row-module_row__3wRGf table-row-module_hover__MdRZU table-row-module_regular__tAYiC data-grid-module_pointer__uipYu base-world-ranking-table_tableRow__fC_zY")
 for rank in ranks:
-    print(rank)
+    print(rank.find('a','link-module_link__F9IVG team-cell_teamName__tyiAD').text)
+    a=a+1
+    if a==3:
+        break
 driver.quit()
