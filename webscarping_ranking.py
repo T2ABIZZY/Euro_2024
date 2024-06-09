@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
+import numpy
 chrome_options = Options()
 chrome_options.add_argument("--no-sandbox")  
 chrome_options.add_argument('--incognito')
@@ -19,7 +20,6 @@ accept_button = WebDriverWait(driver, 10).until(
     )
 accept_button.click()
 time.sleep(3)
-
 def is_element_in_view(driver, element):
     return driver.execute_script("return (window.innerHeight + window.scrollY) >= arguments[0].getBoundingClientRect().bottom;", element)
 
@@ -61,9 +61,20 @@ while True:
 
 page_source = driver.page_source
 soup = BeautifulSoup(page_source, 'html.parser')
-ranking=[]
+full_name_ranking=[]
+small_name_ranking=[]
+total_points=[]
 ranks = soup.find_all('tr',class_="table-row-module_row__3wRGf table-row-module_hover__MdRZU table-row-module_regular__tAYiC data-grid-module_pointer__uipYu base-world-ranking-table_tableRow__fC_zY")
 for rank in ranks:
-    ranking.append(rank.find('a','link-module_link__F9IVG team-cell_teamName__tyiAD').text)
-print(len(ranking))
+    full_name_ranking.append(rank.find('a','link-module_link__F9IVG team-cell_teamName__tyiAD').text)
+    small_name_ranking.append(rank.find('a','link-module_link__F9IVG team-cell_teamCode__Yi4NC').text)
+    total_points.append(rank.find('span','total-points-cell_points__JPjv3').text)
+
+num_full_name = numpy.array(full_name_ranking)
+num_small_name = numpy.array(small_name_ranking)
+num_points = numpy.array(total_points)
+
+print(len(full_name_ranking))
+print(num_small_name)
+print(num_points)
 driver.quit()
