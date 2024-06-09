@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import time
+import csv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -77,4 +78,14 @@ num_points = numpy.array(total_points)
 print(len(full_name_ranking))
 print(num_small_name)
 print(num_points)
+with open("World_Ranking.csv",'w',newline='') as file:
+    wr = csv.writer(file)
+    wr.writerow(["Country","Abbreviations","Points"])
+    for i in range(len(full_name_ranking)):
+        wr.writerow([full_name_ranking[i],small_name_ranking[i],num_points[i]])
+
+
+
+
+
 driver.quit()

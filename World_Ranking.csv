@@ -1,0 +1,211 @@
+Country,Abbreviations,Points
+Argentina,ARG,1858
+France,FRA,1840.59
+Belgium,BEL,1795.23
+England,ENG,1794.9
+Brazil,BRA,1788.65
+Portugal,POR,1748.11
+Netherlands,NED,1742.29
+Spain,ESP,1727.5
+Italy,ITA,1724.6
+Croatia,CRO,1721.07
+USA,USA,1681.13
+Colombia,COL,1664.28
+Morocco,MAR,1661.42
+Mexico,MEX,1661.11
+Uruguay,URU,1659.39
+Germany,GER,1644.21
+Senegal,SEN,1624.73
+Japan,JPN,1621.88
+Switzerland,SUI,1616.41
+IR Iran,IRN,1613.96
+Denmark,DEN,1602.72
+Ukraine,UKR,1568.86
+Korea Republic,KOR,1563.99
+Australia,AUS,1563.93
+Austria,AUT,1554.86
+Hungary,HUN,1532.2
+Sweden,SWE,1531.68
+Poland,POL,1531.49
+Wales,WAL,1531.38
+Nigeria,NGA,1520.27
+Ecuador,ECU,1518.22
+Peru,PER,1515.82
+Serbia,SRB,1514.2
+Qatar,QAT,1507.94
+Russia,RUS,1504.02
+Czechia,CZE,1501.47
+Egypt,EGY,1499.72
+Côte d'Ivoire,CIV,1498.8
+Scotland,SCO,1497.46
+Türkiye,TUR,1495.94
+Tunisia,TUN,1493.12
+Chile,CHI,1491.71
+Algeria,ALG,1482.71
+Mali,MLI,1477.9
+Panama,PAN,1475.62
+Romania,ROU,1468.17
+Norway,NOR,1467.51
+Slovakia,SVK,1461.55
+Canada,CAN,1461.16
+Greece,GRE,1457.89
+Cameroon,CMR,1452.59
+Costa Rica,CRC,1445.38
+Saudi Arabia,KSA,1443.53
+Venezuela,VEN,1442.29
+Jamaica,JAM,1435.33
+Paraguay,PAR,1430.73
+Slovenia,SVN,1427.84
+Iraq,IRQ,1420.47
+South Africa,RSA,1407.67
+Republic of Ireland,IRL,1399.74
+Finland,FIN,1394.44
+Burkina Faso,BFA,1390.38
+Congo DR,COD,1388.25
+Uzbekistan,UZB,1386.58
+Cabo Verde,CPV,1383.44
+Albania,ALB,1375.1
+United Arab Emirates,UAE,1366.45
+Ghana,GHA,1358.77
+North Macedonia,MKD,1354.19
+Montenegro,MNE,1351.72
+Jordan,JOR,1350.21
+Iceland,ISL,1346.82
+Northern Ireland,NIR,1341.05
+Bosnia and Herzegovina,BIH,1335.6
+Georgia,GEO,1333.76
+Guinea,GUI,1324.65
+Oman,OMA,1323.23
+Israel,ISR,1311.39
+Equatorial Guinea,EQG,1308.03
+Bahrain,BHR,1307.53
+El Salvador,SLV,1305.02
+Honduras,HON,1301.92
+Bulgaria,BUL,1292.59
+Gabon,GAB,1287.33
+Bolivia,BOL,1283.88
+Zambia,ZAM,1278.26
+Luxembourg,LUX,1277.94
+China PR,CHN,1275.22
+Syria,SYR,1266.52
+Haiti,HAI,1262.5
+Curaçao,CUW,1262.48
+Uganda,UGA,1242.15
+Palestine,PLE,1238.66
+Angola,ANG,1235.76
+Armenia,ARM,1229.18
+Belarus,BLR,1226.54
+Benin,BEN,1225.68
+Trinidad and Tobago,TRI,1220.65
+Tajikistan,TJK,1216.76
+Kyrgyz Republic,KGZ,1213.6
+Thailand,THA,1208.93
+Kosovo,KOS,1205.85
+Kazakhstan,KAZ,1203.64
+Aotearoa New Zealand,NZL,1197.68
+Mauritania,MTN,1195.5
+Namibia,NAM,1192.13
+Kenya,KEN,1191.24
+Guatemala,GUA,1188.28
+Madagascar,MAD,1185.86
+Mozambique,MOZ,1184.49
+Congo,CGO,1179.8
+Azerbaijan,AZE,1177.83
+Togo,TOG,1170.34
+Libya,LBY,1166.71
+Vietnam,VIE,1164.54
+Guinea-Bissau,GNB,1163.44
+Comoros,COM,1163.02
+Korea DPR,PRK,1160.57
+Tanzania,TAN,1159.81
+Lebanon,LBN,1158.96
+India,IND,1145.94
+Zimbabwe,ZIM,1143.66
+Estonia,EST,1141.13
+Cyprus,CYP,1141.03
+Malawi,MWI,1140.93
+Sierra Leone,SLE,1137.36
+Sudan,SDN,1129.32
+Central African Republic,CTA,1128.17
+Niger,NIG,1125.5
+The Gambia,GAM,1114.8
+Rwanda,RWA,1112.44
+Solomon Islands,SOL,1111.02
+Faroe Islands,FRO,1103.43
+Indonesia,IDN,1102.7
+Nicaragua,NCA,1102.54
+Latvia,LVA,1095.91
+Lithuania,LTU,1095.23
+Malaysia,MAS,1094.54
+Kuwait,KUW,1085.46
+Burundi,BDI,1081.63
+Philippines,PHI,1075.14
+Antigua and Barbuda,ATG,1072.66
+Turkmenistan,TKM,1072.52
+Suriname,SUR,1071.85
+Ethiopia,ETH,1068.48
+Botswana,BOT,1065.07
+St Kitts and Nevis,SKN,1056.61
+Eswatini,SWZ,1048.89
+Lesotho,LES,1047.58
+Dominican Republic,DOM,1042.86
+Afghanistan,AFG,1036.92
+Liberia,LBR,1029.58
+Moldova,MDA,1028.85
+Guyana,GUY,1020.31
+Singapore,SGP,1019.06
+Yemen,YEM,1017.05
+"Hong Kong, China",HKG,1012.83
+New Caledonia,NCL,1008.92
+Chinese Taipei,TPE,1007.3
+Puerto Rico,PUR,1006.35
+Maldives,MDV,1003.48
+Tahiti,TAH,999.48
+Myanmar,MYA,999.46
+Andorra,AND,998.75
+St Lucia,LCA,988.67
+Papua New Guinea,PNG,985.32
+South Sudan,SSD,984.65
+Fiji,FIJ,983.81
+Cuba,CUB,980.65
+Bermuda,BER,974.3
+Malta,MLT,973.14
+Vanuatu,VAN,972.14
+St Vincent and the Grenadines,VIN,953.47
+Grenada,GRN,950.99
+Montserrat,MSR,946.08
+Chad,CHA,945.92
+Barbados,BRB,943.8
+Nepal,NEP,937.84
+Cambodia,CAM,925.4
+Dominica,DMA,922.25
+Samoa,SAM,920.54
+Belize,BLZ,919.52
+Mauritius,MRI,919.4
+Bangladesh,BAN,905.3
+Bhutan,BHU,904.1
+Macau,MAC,896.62
+Cook Islands,COK,896.59
+São Tomé and Príncipe,STP,893.58
+American Samoa,ASA,890.97
+Laos,LAO,889.62
+Mongolia,MNG,884.04
+Djibouti,DJI,877.28
+Aruba,ARU,875.82
+Brunei Darussalam,BRU,872.65
+Pakistan,PAK,849.94
+Cayman Islands,CAY,847.81
+Seychelles,SEY,845.53
+Timor-Leste,TLS,843.4
+Somalia,SOM,842.64
+Bahamas,BAH,835.81
+Tonga,TGA,833.12
+Liechtenstein,LIE,832.75
+Gibraltar,GIB,832.5
+Sri Lanka,SRI,829.41
+Guam,GUM,821.91
+Turks and Caicos Islands,TCA,817.03
+British Virgin Islands,VGB,813.31
+US Virgin Islands,VIR,797.29
+Anguilla,AIA,793.48
+San Marino,SMR,742.05
