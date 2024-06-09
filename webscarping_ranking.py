@@ -8,7 +8,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
-import numpy
 def setup_driver():
     chrome_options = Options()
     chrome_options.add_argument("--no-sandbox")  
@@ -78,13 +77,10 @@ for rank in ranks:
     small_name_ranking.append(rank.find('a','link-module_link__F9IVG team-cell_teamCode__Yi4NC').text)
     total_points.append(rank.find('span','total-points-cell_points__JPjv3').text)
 
-num_full_name = numpy.array(full_name_ranking)
-num_small_name = numpy.array(small_name_ranking)
-num_points = numpy.array(total_points)
+
 
 print(len(full_name_ranking))
-print(num_small_name)
-print(num_points)
+
 with open("World_Ranking.csv",'w',newline='') as file:
     wr = csv.writer(file)
     wr.writerow(["Country","Abbreviations","Points"])
