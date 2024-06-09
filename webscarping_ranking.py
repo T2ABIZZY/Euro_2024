@@ -16,7 +16,6 @@ def setup_driver():
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
     return driver 
-
 driver = setup_driver()
 driver.get("https://inside.fifa.com/fifa-world-ranking/men")
 def wait_for_element(driver,by,value,timeout=10):
@@ -65,31 +64,26 @@ while True:
     if is_target_element_present(driver):
         break
 
+def fetch_ranking_data(driver):
 
-page_source = driver.page_source
-soup = BeautifulSoup(page_source, 'html.parser')
-full_name_ranking=[]
-small_name_ranking=[]
-total_points=[]
-ranks = soup.find_all('tr',class_="table-row-module_row__3wRGf table-row-module_hover__MdRZU table-row-module_regular__tAYiC data-grid-module_pointer__uipYu base-world-ranking-table_tableRow__fC_zY")
-for rank in ranks:
-    full_name_ranking.append(rank.find('a','link-module_link__F9IVG team-cell_teamName__tyiAD').text)
-    small_name_ranking.append(rank.find('a','link-module_link__F9IVG team-cell_teamCode__Yi4NC').text)
-    total_points.append(rank.find('span','total-points-cell_points__JPjv3').text)
-
-
-
-print(len(full_name_ranking))
-
-with open("World_Ranking.csv",'w',newline='') as file:
-    wr = csv.writer(file)
-    wr.writerow(["Country","Abbreviations","Points"])
-    for i in range(len(full_name_ranking)):
-        wr.writerow([full_name_ranking[i],small_name_ranking[i],num_points[i]])
+    page_source = driver.page_source
+    soup = BeautifulSoup(page_source, 'html.parser')
+    ranks = soup.find_all('tr',
+        class_="table-row-module_row__3wRGf table-row-module_hover__MdRZU table-row-module_regular__tAYiC data-grid-module_pointer__uipYu base-world-ranking-table_tableRow__fC_zY")
+    full_name_ranking= [rank.find('a','link-module_link__F9IVG team-cell_teamName__tyiAD').text for rank in ranks]
+    small_name_ranking= [rank.find('a','link-module_link__F9IVG team-cell_teamCode__Yi4NC').text for rank in ranks]
+    total_points=[rank.find('span','total-points-cell_points__JPjv3').text for rank in ranks]
+    print(len(full_name_ranking))
+    return full_name_ranking,small_name_ranking,total_points
 
 
 
-driver.quit()
+def save_to_csv(full_name_ranking, small_name_ranking, total_points):
+    with open("World_Ranking.csv",'w',newline='') as file:
+        wr = csv.writer(file)
+        wr.writerow(["Country","Abbreviations","Points"])
+        for i in range(len(full_name_ranking)):
+            wr.writerow([full_name_ranking[i],small_name_ranking[i],total_points[i]])
 def main():
     driver = setup_driver()
     driver.get("https://inside.fifa.com/fifa-world-ranking/men")
@@ -97,6 +91,8 @@ def main():
         accept_button= wait_for_element(driver,By.ID,"onetrust-accept-btn-handler")
         accept_button.click()
         time.sleep(3)
+        full_name_ranking,small_name_ranking, total_points= fetch_ranking_data(driver)
+        save_to_csv(full_name_ranking,small_name_ranking,total_points)
     except Exception as e:
         print(f"an error occurred:{e}")
     finally:
