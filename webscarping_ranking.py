@@ -17,6 +17,7 @@ def setup_driver():
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
     return driver 
+
 driver = setup_driver()
 driver.get("https://inside.fifa.com/fifa-world-ranking/men")
 def wait_for_element(driver,by,value,timeout=10):
@@ -34,7 +35,8 @@ target = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.CLASS_NAME, "button-module_contentContainer__QyE5V"))
 )
 
-# Scroll incrementally until the target element is in view
+def scroll_to_element(driver,element,scroll_pause_time=0.5):
+    s
 scroll_pause_time = 0.5  # Time to wait between scrolls
 
 while True:
@@ -91,6 +93,13 @@ with open("World_Ranking.csv",'w',newline='') as file:
 
 
 
-
-
 driver.quit()
+def main():
+    driver = setup_driver()
+    driver.get("https://inside.fifa.com/fifa-world-ranking/men")
+    try:
+        accept_button= wait_for_element(driver,By.ID,"onetrust-accept-btn-handler")
+        accept_button.click()
+        time.sleep(3)
+if __name__ == "__main__":
+    main()
