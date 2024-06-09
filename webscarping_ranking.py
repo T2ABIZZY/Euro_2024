@@ -101,5 +101,9 @@ def main():
         accept_button= wait_for_element(driver,By.ID,"onetrust-accept-btn-handler")
         accept_button.click()
         time.sleep(3)
+    except Exception as e:
+        print(f"an error occurred:{e}")
+    finally:
+        driver.quit()
 if __name__ == "__main__":
     main()
