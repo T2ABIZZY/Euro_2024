@@ -9,13 +9,18 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 import numpy
-chrome_options = Options()
-chrome_options.add_argument("--no-sandbox")  
-chrome_options.add_argument('--incognito')
-chrome_options.add_argument("--disable-dev-shm-usage")  
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=chrome_options)
+def setup_driver():
+    chrome_options = Options()
+    chrome_options.add_argument("--no-sandbox")  
+    chrome_options.add_argument('--incognito')
+    chrome_options.add_argument("--disable-dev-shm-usage")  
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+    return driver 
+driver = setup_driver()
 driver.get("https://inside.fifa.com/fifa-world-ranking/men")
+def wait_for_element(driver,by,value,timeout=10):
+    return WebDriverWait(driver,timeout).until(EC.element_to_be_clickable((by,value)))
 accept_button = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.ID, "onetrust-accept-btn-handler"))
     )
