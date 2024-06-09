@@ -25,37 +25,22 @@ accept_button = WebDriverWait(driver, 10).until(
     )
 accept_button.click()
 time.sleep(3)
-def is_element_in_view(driver, element):
-    return driver.execute_script("return (window.innerHeight + window.scrollY) >= arguments[0].getBoundingClientRect().bottom;", element)
 
-# Find the target button element
 target = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.CLASS_NAME, "button-module_contentContainer__QyE5V"))
 )
 
 def scroll_to_element(driver,element,scroll_pause_time=0.5):
-    s
-scroll_pause_time = 0.5  # Time to wait between scrolls
-
-while True:
-
-    driver.execute_script("window.scrollBy(0, 500);")
-    time.sleep(scroll_pause_time)
-
-    if is_element_in_view(driver, target):
-        driver.execute_script("arguments[0].scrollIntoView(true);", target)
-        break
-
-target = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable((By.CLASS_NAME, "button-module_contentContainer__QyE5V"))
-)
+    while True:
+        driver.execute_script("window.scrollBy(0, 500);")
+        time.sleep(scroll_pause_time)
+        if driver.execute_script("return (window.innerHeight + window.scrollY) >= arguments[0].getBoundingClientRect().bottom;", element):
+            driver.execute_script("arguments[0].scrollIntoView(true);", element)
+            break
 
 def is_target_element_present(driver):
     elements = driver.find_elements(By.CLASS_NAME, "rank-cell_rank__yNDOI")
-    for element in elements:
-        if element.text == "210":
-            return True
-    return False
+    return any(element.text== "210" for element in elements)
     
 driver.execute_script("arguments[0].click();", target)
 while True:
@@ -65,7 +50,6 @@ while True:
         break
 
 def fetch_ranking_data(driver):
-
     page_source = driver.page_source
     soup = BeautifulSoup(page_source, 'html.parser')
     ranks = soup.find_all('tr',
@@ -75,8 +59,6 @@ def fetch_ranking_data(driver):
     total_points=[rank.find('span','total-points-cell_points__JPjv3').text for rank in ranks]
     print(len(full_name_ranking))
     return full_name_ranking,small_name_ranking,total_points
-
-
 
 def save_to_csv(full_name_ranking, small_name_ranking, total_points):
     with open("World_Ranking.csv",'w',newline='') as file:
