@@ -67,7 +67,6 @@ def main():
         target_button = wait_for_element(driver,By.CLASS_NAME,"button-module_contentContainer__QyE5V")
         scroll_to_element(driver,target_button)
         driver.execute_script("arguments[0].click();", target_button)
-        
         scroll_pause_time = 0.5
         while not is_target_element_present(driver):
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
