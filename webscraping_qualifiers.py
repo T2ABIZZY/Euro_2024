@@ -22,10 +22,6 @@ def wait_for_element(driver, by, value, timeout=10):
     return WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((by, value)))
 
 
-def wait_for_element(driver, by, value, timeout=10):
-    return WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((by, value)))
-
-
 def scroll_to_element(driver, element, scroll_pause_time=0.5):
     while True:
         driver.execute_script("window.scrollBy(0, 500);")
@@ -41,9 +37,9 @@ def main():
         cockies_button = wait_for_element(driver, By.ID, "onetrust-accept-btn-handler")
         cockies_button.click()
         time.sleep(3)
-        # show_more_button = wait_for_element(driver, By.CLASS_NAME, "event__more--static")
-        # show_more_button.click()
-        # time.sleep(3)
+        show_more_button = wait_for_element(driver, By.CLASS_NAME, "event__more--static")
+        show_more_button.click()
+        time.sleep(3)
     except Exception as e:
         print(f"an error occurred {e}")
     finally:
