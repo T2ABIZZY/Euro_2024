@@ -38,8 +38,9 @@ def main():
         cockies_button.click()
         time.sleep(3)
         show_more_button = wait_for_element(driver, By.CLASS_NAME, "event__more--static")
+        scroll_to_element(driver, show_more_button)
         show_more_button.click()
-        time.sleep(3)
+
     except Exception as e:
         print(f"an error occurred {e}")
     finally:
