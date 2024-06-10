@@ -11,14 +11,28 @@ from selenium.webdriver.chrome.service import Service
 
 def setup_driver():
     chrome_options = Options()
-    chrome_options.add_argument("--no-sandbox")  
+    chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument('--incognito')
-    chrome_options.add_argument("--disable-dev-shm-usage")  
+    chrome_options.add_argument("--disable-dev-shm-usage")
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
-    return driver 
+    return driver
+
+def wait_for_element(driver, by, value, timeout=10):
+    return WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((by, value)))
 
 def main():
-        driver = setup_driver()
-if __name__ = "__main__":
+    driver = setup_driver()
+    driver.get("https://www.flashscore.com/football/europe/euro/results/")
+    try:
+        cockies_button =wait_for_element(driver, By.ID, "onetrust-accept-btn-handler")
+        cockies_button.click()
+        
+    except Exception as e:
+        print(f"an error occurred {e}")
+    finally:
+        driver.quit()
+
+
+if __name__ == "__main__":
     main()

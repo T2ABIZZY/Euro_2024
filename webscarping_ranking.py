@@ -19,11 +19,11 @@ def setup_driver():
     driver = webdriver.Chrome(service=service, options=chrome_options)
     return driver 
 
-def wait_for_element(driver,by,value,timeout=10):
-    return WebDriverWait(driver,timeout).until(EC.element_to_be_clickable((by,value)))
+def wait_for_element(driver, by, value, timeout=10):
+    return WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((by, value)))
 
 
-def scroll_to_element(driver,element,scroll_pause_time=0.5):
+def scroll_to_element(driver, element, scroll_pause_time=0.5):
     while True:
         driver.execute_script("window.scrollBy(0, 500);")
         time.sleep(scroll_pause_time)
@@ -37,12 +37,13 @@ def is_target_element_present(driver):
     return any(element.text== "210" for element in elements)
     
 
-
 def fetch_ranking_data(driver):
     page_source = driver.page_source
     soup = BeautifulSoup(page_source, 'html.parser')
     ranks = soup.find_all('tr',
-        class_="table-row-module_row__3wRGf table-row-module_hover__MdRZU table-row-module_regular__tAYiC data-grid-module_pointer__uipYu base-world-ranking-table_tableRow__fC_zY"
+        class_="table-row-module_row__3wRGf table-row-module_hover__MdRZU table-row-module_regular__tAYiC data-grid-module_pointer"
+               "__uipYu "
+               "base-world-ranking-table_tableRow__fC_zY"
         )
     full_name_ranking= [rank.find('a','link-module_link__F9IVG team-cell_teamName__tyiAD').text for rank in ranks]
     small_name_ranking= [rank.find('a','link-module_link__F9IVG team-cell_teamCode__Yi4NC').text for rank in ranks]
