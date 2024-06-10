@@ -40,7 +40,8 @@ def main():
         show_more_button = wait_for_element(driver, By.CLASS_NAME, "event__more--static")
         scroll_to_element(driver, show_more_button)
         show_more_button.click()
-
+        scroll_to_element(driver, show_more_button)
+        show_more_button.click()
     except Exception as e:
         print(f"an error occurred {e}")
     finally:
