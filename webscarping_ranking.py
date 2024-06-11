@@ -8,28 +8,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
+import Functions
 
 
-def setup_driver():
-    chrome_options = Options()
-    chrome_options.add_argument("--no-sandbox")  
-    chrome_options.add_argument('--incognito')
-    chrome_options.add_argument("--disable-dev-shm-usage")  
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=chrome_options)
-    return driver 
-
-def wait_for_element(driver, by, value, timeout=10):
-    return WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((by, value)))
-
-
-def scroll_to_element(driver, element, scroll_pause_time=0.5):
-    while True:
-        driver.execute_script("window.scrollBy(0, 500);")
-        time.sleep(scroll_pause_time)
-        if driver.execute_script("return (window.innerHeight + window.scrollY) >= arguments[0].getBoundingClientRect().bottom;", element):
-            driver.execute_script("arguments[0].scrollIntoView(true);", element)
-            break
 
 
 def is_target_element_present(driver):
@@ -58,14 +39,14 @@ def save_to_csv(full_name_ranking, small_name_ranking, total_points):
         for i in range(len(full_name_ranking)):
             wr.writerow([full_name_ranking[i],small_name_ranking[i],total_points[i]])
 def main():
-    driver = setup_driver()
+    driver = Functions.setup_driver()
     driver.get("https://inside.fifa.com/fifa-world-ranking/men")
     try:
-        accept_button= wait_for_element(driver,By.ID,"onetrust-accept-btn-handler")
+        accept_button= Functions.wait_for_element(driver,By.ID,"onetrust-accept-btn-handler")
         accept_button.click()
         time.sleep(3)
-        target_button = wait_for_element(driver,By.CLASS_NAME,"button-module_contentContainer__QyE5V")
-        scroll_to_element(driver,target_button)
+        target_button = Functions.wait_for_element(driver,By.CLASS_NAME,"button-module_contentContainer__QyE5V")
+        Functions.scroll_to_element(driver,target_button)
         driver.execute_script("arguments[0].click();", target_button)
         scroll_pause_time = 0.5
         while not is_target_element_present(driver):
