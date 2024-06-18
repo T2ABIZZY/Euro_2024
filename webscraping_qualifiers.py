@@ -1,11 +1,11 @@
-import select
-
 from bs4 import BeautifulSoup
-import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 import Functions
 
+def fetch_data(driver):
+    page_source = driver.page_source
+    soup = BeautifulSoup(page_source, 'html.parser')
 def main():
     driver = Functions.setup_driver()
     driver.get("https://www.fotmob.com/leagues/50/matches/euro/by-round")
