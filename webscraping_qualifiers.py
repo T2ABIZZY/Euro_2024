@@ -5,9 +5,10 @@ import Functions
 
 def main():
     driver = Functions.setup_driver()
-    driver.get("https://www.eurosport.com/football/euro-qualifying/2024/calendar-results.shtml")
+    driver.get("https://www.fotmob.com/leagues/50/matches/euro/by-round")
     try:
-        print("testing")
+        time.sleep(5)
+
     except Exception as e:
         print(f"an error occurred {e}")
     finally:
