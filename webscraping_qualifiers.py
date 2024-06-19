@@ -8,7 +8,7 @@ def fetch_data(driver):
 
         page_source = driver.page_source
         soup = BeautifulSoup(page_source, 'html.parser')
-        matches = soup.find_all('a', class_='css-13nvyko-MatchWrapper')
+        matches = soup.select('div.slick-slide.slick-active.slick-current a.css-13nvyko-MatchWrapper')
         for match in matches:
             relative_link = match['href']
             full_link = f"https://www.fotmob.com{relative_link}:tab=stats"
@@ -25,10 +25,9 @@ def main():
     driver = Functions.setup_driver()
     driver.get("https://www.fotmob.com/leagues/50/matches/euro/by-round")
     try:
-        which_round = Select(driver.find_element(By.CLASS_NAME, "css-1o54t4m-Select-applyMediumHover"))
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-b08zi1-Select-applyMediumHover"))
         which_round.select_by_visible_text("Round 1")
         fetch_data(driver)
-        print(a)
     except Exception as e:
         print(f"an error occurred {e}")
     finally:
