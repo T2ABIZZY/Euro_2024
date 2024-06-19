@@ -26,12 +26,13 @@ def main():
     driver = Functions.setup_driver()
     driver.get(original_link)
     try:
+        # Round 1
         which_round = Select(driver.find_element(By.CLASS_NAME, "css-b08zi1-Select-applyMediumHover"))
         which_round.select_by_visible_text("Round 1")
         fetch_data(driver)
+        #Round 2
         driver = Functions.setup_driver()
         driver.get(original_link)
-
         which_round = Select(driver.find_element(By.CLASS_NAME, "css-b08zi1-Select-applyMediumHover"))
         which_round.select_by_visible_text("Round 2")
         fetch_data(driver)
