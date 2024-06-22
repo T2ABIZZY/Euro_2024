@@ -4,8 +4,16 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.wait import WebDriverWait
 import time
 import Functions
+import re
+def clean_text(text):
+    text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
+    text = text.strip()
+    return text
 def fetch_data(soup):
-    print("test")
+    header = soup.find('div', 'css-1pf15hj-MFHeaderInfoBoxCSS')
+    date =[header.find('div','css-1tttqnj-MatchDateCSS').time['datetime']]
+    stadium = [clean_text(header.find('a','css-ndn9i5-VenueCSS').span.text)]
+    print(stadium)
 def fetch_matches(driver):
     try:
         page_source = driver.page_source
