@@ -18,7 +18,7 @@ def fetch_matches(driver):
     try:
         page_source = driver.page_source
         soup = BeautifulSoup(page_source, 'html.parser')
-        matches = soup.select('div.slick-slide.slick-active a.css-9on8f0-MatchWrapper')
+        matches = soup.select('div.slick-slide.slick-active a.css-hvo6tv-MatchWrapper')
         print(matches)
         for match in matches:
             relative_link = match['href']
@@ -37,13 +37,13 @@ def main():
     driver.get(original_link)
     try:
         # Round 1
-        which_round = Select(driver.find_element(By.CLASS_NAME, "css-9n0p7i-Select"))
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-f033xm-Select"))
         which_round.select_by_visible_text("Round 1")
         fetch_matches(driver)
         #Round 2
         driver = Functions.setup_driver()
         driver.get(original_link)
-        which_round = Select(driver.find_element(By.CLASS_NAME, "css-9n0p7i-Select"))
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-f033xm-Select"))
         which_round.select_by_visible_text("Round 2")
         fetch_matches(driver)
     except Exception as e:
