@@ -15,10 +15,15 @@ def fetch_data(soup):
     stadium = [clean_text(header.find('a','css-ndn9i5-VenueCSS').span.text)]
     attendance = [header.find('div', 'css-1r6wxia-AttendanceCSS').span.text]
     main_board = soup.find('section','css-154n3ly-MFHeaderFullscreenSection')
-    home_team = [main_board.find('span','css-dg510e-TeamNameItself-TeamNameOnMobile').text]
-    away_team = [main_board.find('span','css-dpbuul-TeamNameItself-TeamNameOnTabletUp').text]
-    print(away_team)
-
+    home_team = [main_board.find('div', 'css-1o6li2i-TeamMarkup').find('span',
+                               'css-dpbuul-TeamNameItself-TeamNameOnTabletUp').text]
+    away_team = [main_board.find('div', 'css-6p9nys-TeamMarkup').find('span',
+                               'css-dpbuul-TeamNameItself-TeamNameOnTabletUp').text]
+    score = main_board.find('span', 'css-ktw5ic-MFHeaderStatusScore').text
+    home_goals = [score[0]]
+    away_goals = [score[-1]]
+    print(home_goals,away_goals)
+    return date,stadium,attendance,home_team,away_team
 def fetch_matches(driver):
     try:
         page_source = driver.page_source
