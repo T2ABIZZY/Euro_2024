@@ -13,13 +13,15 @@ def fetch_data(soup):
     header = soup.find('div', 'css-1pf15hj-MFHeaderInfoBoxCSS')
     date =[header.find('div','css-1tttqnj-MatchDateCSS').time['datetime']]
     stadium = [clean_text(header.find('a','css-ndn9i5-VenueCSS').span.text)]
-    print(stadium)
+    attendance = [header.find('div', 'css-1r6wxia-AttendanceCSS').span.text]
+
+
+    print(attendance)
 def fetch_matches(driver):
     try:
         page_source = driver.page_source
         soup = BeautifulSoup(page_source, 'html.parser')
         matches = soup.select('div.slick-slide.slick-active a.css-hvo6tv-MatchWrapper')
-        print(matches)
         for match in matches:
             relative_link = match['href']
             full_link = f"https://www.fotmob.com{relative_link}:tab=stats"
