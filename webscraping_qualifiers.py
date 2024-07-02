@@ -22,7 +22,6 @@ def fetch_data(soup):
     score = main_board.find('span', 'css-ktw5ic-MFHeaderStatusScore').text
     home_goals = [score[0]]
     away_goals = [score[-1]]
-    print(home_goals,away_goals)
     return date,stadium,attendance,home_team,away_team
 def fetch_matches(driver):
     try:
