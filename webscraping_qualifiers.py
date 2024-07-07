@@ -1,10 +1,12 @@
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.wait import WebDriverWait
-import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import Functions
 import re
+import csv
+import time
 def clean_text(text):
     text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
     text = text.strip()
@@ -17,19 +19,20 @@ data={
     'home_goals':[],
     'away_goals':[]
 }
+
 rank_headers=[
     'Expected goals (xG)','Total shots','Shots on target','Big chances',
     'Big chances missed','Accurate passes','Fouls committed','Corners',
-    'Total shots','Shots off target','Shots on target','Blocked shots'
-    'Hit woodwork','Shots inside box','Shots outside box','Expected goals (xG)'
-    'xG open play','xG set play','Non-penalty xG','xG on target (xGOT)'
-    'Passes','Accurate passes','Own half','Opposition half'
-    'Accurate long balls','Accurate crosses','Throws','Touches in opposition box'
-    'Offsides','Tackles won','Interceptions','Blocks'
-    'Clearances','Keeper saves','Yellow cards','Red cards'
+    'Total shots','Shots off target','Shots on target','Blocked shots',
+    'Hit woodwork','Shots inside box','Shots outside box','Expected goals (xG)',
+    'xG open play','xG set play','Non-penalty xG','xG on target (xGOT)',
+    'Passes','Accurate passes','Own half','Opposition half',
+    'Accurate long balls','Accurate crosses','Throws','Touches in opposition box',
+    'Offsides','Tackles won','Interceptions','Blocks',
+    'Clearances','Keeper saves','Yellow cards','Red cards',
     'Duels won','Ground duels won','Aerial duels won','Successful dribbles'
 ]
-rank_data = {header: [] for header in rank_headers}
+rank_dict = {header: [] for header in rank_headers}
 def fetch_data(soup):
     header = soup.find('div', 'css-1pf15hj-MFHeaderInfoBoxCSS')
     data['stadium'].append(clean_text(header.find('a','css-ndn9i5-VenueCSS').span.text))
@@ -42,7 +45,16 @@ def fetch_data(soup):
     score = main_board.find('span', 'css-ktw5ic-MFHeaderStatusScore').text
     data['home_goals'].append(score[0])
     data['away_goals'].append(score[-1])
+
     ranks = soup.find_all('div', class_='css-136hnlq-StatBox')
+
+    if len(ranks) == len(rank_headers):
+        for header, rank in zip(rank_headers, ranks):
+            rank_dict[header].append(rank.get_text(strip=True))
+    else:
+        print("Error: The number of ranks does not match the number of headers.")
+    print(len(ranks))
+
 
 def fetch_matches(driver):
     try:
@@ -53,9 +65,12 @@ def fetch_matches(driver):
             relative_link = match['href']
             full_link = f"https://www.fotmob.com{relative_link}:tab=stats"
             driver.get(full_link)
+            element_present = EC.presence_of_all_elements_located((By.CLASS_NAME, 'css-136hnlq-StatBox'))
+            WebDriverWait(driver, 10).until(element_present)
             page_source = driver.page_source
             soup = BeautifulSoup(page_source, 'html.parser')
             fetch_data(soup)
+
     except Exception as e:
         print(f"An error occurred: {e}")
 
@@ -66,16 +81,16 @@ def main():
     driver.get(original_link)
     try:
         # Round 1
-        which_round = Select(driver.find_element(By.CLASS_NAME, "css-1ugcbd1-Select"))
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-gk6f5k-Select"))
         which_round.select_by_visible_text("Round 1")
         fetch_matches(driver)
         #Round 2
-        driver = Functions.setup_driver()
-        driver.get(original_link)
-        which_round = Select(driver.find_element(By.CLASS_NAME, "css-1ugcbd1-Select"))
-        which_round.select_by_visible_text("Round 2")
-        fetch_matches(driver)
-        print(len(data['home_team']))
+        # driver = Functions.setup_driver()
+        # driver.get(original_link)
+        # which_round = Select(driver.find_element(By.CLASS_NAME, "css-1ugcbd1-Select"))
+        # which_round.select_by_visible_text("Round 2")
+        # fetch_matches(driver)
+        print(rank_dict['Expected goals (xG)'])
     except Exception as e:
         print(f"an error occurred {e}")
     finally:
