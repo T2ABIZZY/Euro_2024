@@ -52,10 +52,10 @@ def fetch_data(soup):
     data['stadium'].append(clean_text(header.find('a','css-ndn9i5-VenueCSS').span.text))
     data['attendance'].append(header.find('div', 'css-1r6wxia-AttendanceCSS').span.text)
     main_board = soup.find('section','css-154n3ly-MFHeaderFullscreenSection')
-    data['home_team'].append(main_board.find('div', 'css-1o6li2i-TeamMarkup').find('span',
-                               'css-dpbuul-TeamNameItself-TeamNameOnTabletUp').text)
-    data['away_team'].append(main_board.find('div', 'css-6p9nys-TeamMarkup').find('span',
-                               'css-dpbuul-TeamNameItself-TeamNameOnTabletUp').text)
+    home = main_board.find('span','css-12r3z1-TeamName')
+    data['home_team'].append(home.find('span').text)
+    away = main_board.find('span','css-4nnvmn-TeamName')
+    data['away_team'].append(away.find('span').text)
     score = main_board.find('span', 'css-ktw5ic-MFHeaderStatusScore').text
     data['home_goals'].append(score[0])
     data['away_goals'].append(score[-1])
@@ -174,12 +174,30 @@ def main():
         which_round = Select(driver.find_element(By.CLASS_NAME, "css-gk6f5k-Select"))
         which_round.select_by_visible_text("Round 1")
         fetch_matches(driver)
-        #Round 2
-        # driver = Functions.setup_driver()
-        # driver.get(original_link)
-        # which_round = Select(driver.find_element(By.CLASS_NAME, "css-gk6f5k-Select"))
-        # which_round.select_by_visible_text("Round 2")
-        # fetch_matches(driver)
+        # #Round 2
+        driver = Functions.setup_driver()
+        driver.get(original_link)
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-gk6f5k-Select"))
+        which_round.select_by_visible_text("Round 2")
+        fetch_matches(driver)
+        #Round 3
+        driver = Functions.setup_driver()
+        driver.get(original_link)
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-gk6f5k-Select"))
+        which_round.select_by_visible_text("Round 3")
+        fetch_matches(driver)
+        # Round 16
+        driver = Functions.setup_driver()
+        driver.get(original_link)
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-gk6f5k-Select"))
+        which_round.select_by_visible_text("Round of 16")
+        fetch_matches(driver)
+        #Quarter-final
+        driver = Functions.setup_driver()
+        driver.get(original_link)
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-gk6f5k-Select"))
+        which_round.select_by_visible_text("Quarter-final")
+        fetch_matches(driver)
         save_to_csv(data,home_rank_dict,away_rank_dict)
     except Exception as e:
         print(f"an error occurred {e}")
