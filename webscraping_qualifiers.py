@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import Functions
 import re
 import csv
+import time
 def clean_text(text):
     text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
     text = text.strip()
@@ -20,9 +21,9 @@ data={
 }
 
 home_rank_headers = [
-    'Expected goals (xG)', 'Total shots', 'Shots on target', 'Big chances',
+    'Expected goals(xG)', 'Total shots', 'Shots on target', 'Big chances',
     'Big chances missed', 'Accurate passes', 'Fouls committed', 'Corners',
-    'Total shots', 'Shots off target', 'Shots on target', 'Blocked shots',
+    'Total shots.', 'Shots off target', 'Shots on target.', 'Blocked shots',
     'Hit woodwork', 'Shots inside box', 'Shots outside box', 'Expected goals (xG)',
     'xG open play', 'xG set play', 'Non-penalty xG', 'xG on target (xGOT)',
     'Passes', 'Accurate passes', 'Own half', 'Opposition half',
@@ -33,9 +34,9 @@ home_rank_headers = [
 ]
 
 away_rank_headers = [
-    'Expected goals (xG)', 'Total shots', 'Shots on target', 'Big chances',
+    'Expected goals(xG)', 'Total shots', 'Shots on target', 'Big chances',
     'Big chances missed', 'Accurate passes', 'Fouls committed', 'Corners',
-    'Total shots', 'Shots off target', 'Shots on target', 'Blocked shots',
+    'Total shots.', 'Shots off target', 'Shots on target.', 'Blocked shots',
     'Hit woodwork', 'Shots inside box', 'Shots outside box', 'Expected goals (xG)',
     'xG open play', 'xG set play', 'Non-penalty xG', 'xG on target (xGOT)',
     'Passes', 'Accurate passes', 'Own half', 'Opposition half',
@@ -69,7 +70,6 @@ def fetch_data(soup):
                 away_rank_dict[header].append(rank.get_text(strip=True))
         else:
             print("Error: The number of home_ranks does not match the number of headers.")
-        print(len(home_ranks))
     except Exception as e:
         print(f"An error occurredss: {e}")
     return data,home_rank_dict,away_rank_dict
@@ -97,9 +97,9 @@ def save_to_csv(data,home_rank_dict,away_rank_dict):
     with open("Euro_2024_Matches.csv",'w',newline='') as file:
         wr = csv.writer(file)
         wr.writerow(["stadium","attendance","home_team",'away_team','home_goals','away_goals',
-    'Home Expected goals (xG)','Home Total shots','Home Shots on target','Home Big chances',
+    'Home Expected goals(xG)','Home Total shots','Home Shots on target','Home Big chances',
     'Home Big chances missed','Home Accurate passes','Home Fouls committed','Home Corners',
-    'Home Total shots','Home Shots off target','Home Shots on target','Home Blocked shots',
+    'Home Total shots.','Home Shots off target','Home Shots on target.','Home Blocked shots',
     'Home Hit woodwork','Home Shots inside box','Home Shots outside box','Home Expected goals (xG)',
     'Home xG open play','Home xG set play','Home Non-penalty xG','Home xG on target (xGOT)',
     'Home Passes','Home Accurate passes','Home Own half','Home Opposition half',
@@ -107,9 +107,9 @@ def save_to_csv(data,home_rank_dict,away_rank_dict):
     'Home Offsides','Home Tackles won','Home Interceptions','Home Blocks',
     'Home Clearances','Home Keeper saves','Home Yellow cards','Home Red cards',
     'Home Duels won','Home Ground duels won','Home Aerial duels won','Home Successful dribbles',
-    'Away Expected goals (xG)', 'Away Total shots', 'Away Shots on target', 'Away Big chances',
+    'Away Expected goals(xG)', 'Away Total shots', 'Away Shots on target.', 'Away Big chances',
     'Away Big chances missed', 'Away Accurate passes', 'Away Fouls committed', 'Away Corners',
-    'Away Total shots', 'Away Shots off target', 'Away Shots on target', 'Away Blocked shots',
+    'Away Total shots.', 'Away Shots off target', 'Away Shots on target.', 'Away Blocked shots',
     'Away Hit woodwork', 'Away Shots inside box', 'Away Shots outside box', 'Away Expected goals (xG)',
     'Away xG open play', 'Away xG set play', 'Away Non-penalty xG', 'Away xG on target (xGOT)',
     'Away Passes', 'Away Accurate passes', 'Away Own half', 'Away Opposition half',
@@ -123,7 +123,7 @@ def save_to_csv(data,home_rank_dict,away_rank_dict):
             row = [
                 data['stadium'][i], data['attendance'][i], data['home_team'][i], data['away_team'][i],
                 data['home_goals'][i], data['away_goals'][i],
-                home_rank_dict['Expected goals (xG)'][i], home_rank_dict['Total shots'][i], home_rank_dict['Shots on target'][i],
+                home_rank_dict['Expected goals(xG)'][i], home_rank_dict['Total shots'][i], home_rank_dict['Shots on target'][i],
                 home_rank_dict['Big chances'][i],
                 home_rank_dict['Big chances missed'][i], home_rank_dict['Accurate passes'][i], home_rank_dict['Fouls committed'][i],
                 home_rank_dict['Corners'][i],
@@ -142,7 +142,7 @@ def save_to_csv(data,home_rank_dict,away_rank_dict):
                 home_rank_dict['Clearances'][i], home_rank_dict['Keeper saves'][i], home_rank_dict['Yellow cards'][i],
                 home_rank_dict['Red cards'][i],
                 home_rank_dict['Duels won'][i], home_rank_dict['Ground duels won'][i], home_rank_dict['Aerial duels won'][i],
-                home_rank_dict['Successful dribbles'][i],away_rank_dict['Expected goals (xG)'][i], away_rank_dict['Total shots'][i], away_rank_dict['Shots on target'][i],
+                home_rank_dict['Successful dribbles'][i],away_rank_dict['Expected goals(xG)'][i], away_rank_dict['Total shots'][i], away_rank_dict['Shots on target'][i],
                 away_rank_dict['Big chances'][i],
                 away_rank_dict['Big chances missed'][i], away_rank_dict['Accurate passes'][i], away_rank_dict['Fouls committed'][i],
                 away_rank_dict['Corners'][i],
@@ -170,35 +170,37 @@ def main():
     driver = Functions.setup_driver()
     driver.get(original_link)
     try:
+        start_time =time.time()
         # Round 1
-        which_round = Select(driver.find_element(By.CLASS_NAME, "css-gk6f5k-Select"))
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-hoemwv-Select"))
         which_round.select_by_visible_text("Round 1")
         fetch_matches(driver)
         # #Round 2
         driver = Functions.setup_driver()
         driver.get(original_link)
-        which_round = Select(driver.find_element(By.CLASS_NAME, "css-gk6f5k-Select"))
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-hoemwv-Select"))
         which_round.select_by_visible_text("Round 2")
         fetch_matches(driver)
         #Round 3
         driver = Functions.setup_driver()
         driver.get(original_link)
-        which_round = Select(driver.find_element(By.CLASS_NAME, "css-gk6f5k-Select"))
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-hoemwv-Select"))
         which_round.select_by_visible_text("Round 3")
         fetch_matches(driver)
         # Round 16
         driver = Functions.setup_driver()
         driver.get(original_link)
-        which_round = Select(driver.find_element(By.CLASS_NAME, "css-gk6f5k-Select"))
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-hoemwv-Select"))
         which_round.select_by_visible_text("Round of 16")
         fetch_matches(driver)
         #Quarter-final
         driver = Functions.setup_driver()
         driver.get(original_link)
-        which_round = Select(driver.find_element(By.CLASS_NAME, "css-gk6f5k-Select"))
+        which_round = Select(driver.find_element(By.CLASS_NAME, "css-hoemwv-Select"))
         which_round.select_by_visible_text("Quarter-final")
         fetch_matches(driver)
         save_to_csv(data,home_rank_dict,away_rank_dict)
+        print("--- %s seconds ---" % (time.time() - start_time))
     except Exception as e:
         print(f"an error occurred {e}")
     finally:
