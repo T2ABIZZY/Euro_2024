@@ -28,9 +28,10 @@ home_rank_headers = [
     'xG open play', 'xG set play', 'Non-penalty xG', 'xG on target (xGOT)',
     'Passes', 'Accurate passes', 'Own half', 'Opposition half',
     'Accurate long balls', 'Accurate crosses', 'Throws', 'Touches in opposition box',
-    'Offsides', 'Tackles won', 'Interceptions', 'Blocks',
-    'Clearances', 'Keeper saves', 'Yellow cards', 'Red cards',
-    'Duels won', 'Ground duels won', 'Aerial duels won', 'Successful dribbles'
+    'Offsides','Yellow cards', 'Red cards', 'Tackles won', 'Interceptions', 'Blocks',
+    'Clearances', 'Keeper saves','Duels won', 'Ground duels won', 'Aerial duels won',
+    'Successful dribbles'
+
 ]
 
 away_rank_headers = [
@@ -41,9 +42,9 @@ away_rank_headers = [
     'xG open play', 'xG set play', 'Non-penalty xG', 'xG on target (xGOT)',
     'Passes', 'Accurate passes', 'Own half', 'Opposition half',
     'Accurate long balls', 'Accurate crosses', 'Throws', 'Touches in opposition box',
-    'Offsides', 'Tackles won', 'Interceptions', 'Blocks',
-    'Clearances', 'Keeper saves', 'Yellow cards', 'Red cards',
-    'Duels won', 'Ground duels won', 'Aerial duels won', 'Successful dribbles'
+    'Offsides','Yellow cards', 'Red cards', 'Tackles won', 'Interceptions', 'Blocks',
+    'Clearances', 'Keeper saves','Duels won', 'Ground duels won', 'Aerial duels won',
+    'Successful dribbles'
 ]
 home_rank_dict = {header: [] for header in home_rank_headers}
 away_rank_dict = {header: [] for header in away_rank_headers}
